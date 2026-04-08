@@ -68,7 +68,7 @@ SynthDef(\cowbell, { |out = 4, amp = 0.6, pan = 0,
     var env  = EnvGen.kr(Env.perc(0.001, decay), gate, doneAction: 2);
 
     // classic cowbell uses two slightly detuned square waves
-    var sig  = (SquareWave.ar(freq) + SquareWave.ar(freq * 1.502)) * 0.5;
+    var sig  = (Pulse.ar(freq, 0.5) + Pulse.ar(freq * 1.502, 0.5)) * 0.5;
     sig = BPF.ar(sig, freq * 2, 0.8) * env * amp;
 
     Out.ar(out, Pan2.ar(sig, pan));

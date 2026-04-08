@@ -42,6 +42,7 @@ s.options.maxSynthDefs         = 1024;
 // 2. BOOT SERVER AND LOAD EVERYTHING
 // ------------------------------------------------------------
 s.waitForBoot({
+    var synthdefsPath = thisProcess.nowExecutingPath.dirname +/+ "synthdefs";
 
     // --------------------------------------------------------
     // 2a. Set default BPM (120 BPM = 2.0 beats/second)
@@ -51,7 +52,6 @@ s.waitForBoot({
     // --------------------------------------------------------
     // 2b. Load all SynthDef files from synthdefs/ folder
     // --------------------------------------------------------
-    var synthdefsPath = thisProcess.nowExecutingPath.dirname +/+ "synthdefs";
     PathName(synthdefsPath).filesDo { |file|
         if(file.extension == "scd") {
             ("Loading SynthDef: " ++ file.fileName).postln;
@@ -63,9 +63,9 @@ s.waitForBoot({
     s.sync;
 
     // --------------------------------------------------------
-    // 2c. Initialize a ProxySpace (accessible as ~p globally)
+    // 2c. Initialize a ProxySpace (accessible as p globally)
     // --------------------------------------------------------
-    ~p = ProxySpace.push(s);
+    p = ProxySpace.push(s);
 
     // --------------------------------------------------------
     // 2d. Print welcome message and routing table
@@ -83,7 +83,7 @@ s.waitForBoot({
     "║  Track 7  │  out 6  │  🎸  Lead / FX                ║".postln;
     "║  Track 8  │  out 7  │  🎚️  Master / Aux             ║".postln;
     "╠══════════════════════════════════════════════════════╣".postln;
-    "║  BPM: 120  │  ProxySpace: ~p                        ║".postln;
+    "║  BPM: 120  │  ProxySpace: p                         ║".postln;
     "║  STOP ALL: Cmd+.  (macOS)  /  Alt+.  (Win/Linux)   ║".postln;
     "╚══════════════════════════════════════════════════════╝".postln;
     "".postln;
