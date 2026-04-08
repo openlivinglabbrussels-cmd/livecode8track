@@ -19,7 +19,7 @@ SynthDef(\hihat_closed, { |out = 3, amp = 0.6, pan = 0,
 
     // metallic character: mix of square/pulse oscillators like real hi-hat
     var freqs = [tone, tone * 1.414, tone * 1.732, tone * 2.0, tone * 2.4, tone * 2.76];
-    var metal = Mix(freqs.collect { |f| SquareWave.ar(f) }) / freqs.size;
+    var metal = Mix(freqs.collect { |f| Pulse.ar(f, 0.5) }) / freqs.size;
     var sig   = HPF.ar(metal, 6000) * env * amp;
 
     Out.ar(out, Pan2.ar(sig, pan));
@@ -39,7 +39,7 @@ SynthDef(\hihat_open, { |out = 3, amp = 0.55, pan = 0,
     );
 
     var freqs = [tone, tone * 1.414, tone * 1.732, tone * 2.0, tone * 2.4, tone * 2.76];
-    var metal = Mix(freqs.collect { |f| SquareWave.ar(f) }) / freqs.size;
+    var metal = Mix(freqs.collect { |f| Pulse.ar(f, 0.5) }) / freqs.size;
     var sig   = HPF.ar(metal, 5500) * env * amp;
 
     Out.ar(out, Pan2.ar(sig, pan));
